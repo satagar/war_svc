@@ -18,12 +18,6 @@ apiRouter.route('/login').post(validator.authLogin, authController.login);
 apiRouter.route('/logout').post(authController.logout);
 apiRouter.route('/refresh').post(validator.authRefresh, authController.refresh);
 
-/* apiRouter.route('/movies').get();
-apiRouter.route('/movies/:id').get();
-
-apiRouter.route('/cinemas').get();
-apiRouter.route('/cinemas/:id').get(); */
-
 apiRouterSecure.use(authenticate);
 
 apiRouterSecure.route('/users')
@@ -34,13 +28,6 @@ apiRouterSecure.route('/users/:id')
     .get(authorize, userController.read)
     .put(authorize, validator.userUpdate, userController.update)
     .delete(authorize, userController.destroy);
-
-/* apiRouterSecure.route('/movies')
-    .post(authorize, validator.userCreate, userController.create);
-
-apiRouterSecure.route('/movies/:id')
-    .put(authorize, validator.userUpdate, userController.update)
-    .delete(authorize, userController.destroy); */
 
 module.exports = {
     apiRouter: apiRouter, 

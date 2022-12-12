@@ -29,6 +29,18 @@ const orderSchema = mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'user',
         required: true
+    },
+    courier: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'courier'
+    },
+    airWayBillNumber: {
+        type: String,
+        unique: true
+    },
+    deliveryCharge: {
+        type: Number,
+        default: 0
     }
 }, {
     timestamps: true,
