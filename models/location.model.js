@@ -1,5 +1,5 @@
 const mongoose = require('mongoose')
-const sourceSchema = new mongoose.Schema({
+const locationSchema = new mongoose.Schema({
     sourceId:{
         type:String,
         required:true,
@@ -38,5 +38,5 @@ const sourceSchema = new mongoose.Schema({
         }
     }
 })
-const sourceModel = mongoose.model('source',sourceSchema);
+const sourceModel = mongoose.model('location',locationSchema);
 module.exports = sourceModel

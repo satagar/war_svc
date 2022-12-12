@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
-const orderSchema = new mongoose.Schema({
-    orderId:{
+const paymentSchema = new mongoose.Schema({
+    paymentId:{
         type:String,
         required:true,
     },
@@ -11,26 +11,27 @@ const orderSchema = new mongoose.Schema({
     description:{
         type:String
     },
-    source:{
-        type:mongoose.SchemaType.ObjectId,
-       ref:"location"
+    Amount:{
+        type:Number,
+       required:true
     },
-    destinetion:{
+    paymentMethod:{
+        type:String,
+        default:"INTERNET_BANKING",
+        enum:['INTERNET_BANKING',"COD","DEBIT_CARD"]//user only allow these method for payment
+    },
+    orderId:{
         type:mongoose.SchemaType.ObjectId,
-        required:"location"
+        required:"order"
     },
     user:{
         type:mongoose.SchemaType.ObjectId,
         ref:"user"
     },
-    orderStatus:{
+    paymentStatus:{
         type:String,
-        default:"PENDING",
-        enum:["PENDING","RUNING","COMPLETED"]
-    },
-    paymentDetail:{
-        type:mongoose.SchemaType.ObjectId,
-        ref:"payment"
+        default:"SUCCESS",
+        enum:["SUCCESS","FAILED"]
     },
     createdAt:{
         type:String,
@@ -47,5 +48,5 @@ const orderSchema = new mongoose.Schema({
     }
 })
 
-const orderModel = mongoose.model('order',orderSchema);
-module.exports = orderModel
+const paymentModel = mongoose.model('payment',orderSchema);
+module.exports = paymentModel
