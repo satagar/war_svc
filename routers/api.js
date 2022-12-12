@@ -30,7 +30,7 @@ apiRouterSecure.route('/users/:id')
     .put(authorize, validator.userUpdate, userController.update)
     .delete(authorize, userController.destroy);
 
-apiRouterSecure.route('/orders/')
+apiRouterSecure.route('/orders')
     .get(authorizeRoles(['admin', 'student']), orderController.index)
     .post(authorizeRoles(['student']), orderController.create);
 
