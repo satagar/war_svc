@@ -11,6 +11,10 @@ const paymentSchema = new mongoose.Schema({
     description:{
         type:String
     },
+    Account:{
+        type:Number,
+        required:true
+    },
     Amount:{
         type:Number,
        required:true
