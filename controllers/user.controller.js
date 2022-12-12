@@ -47,12 +47,8 @@ const update = async (req, res) => {
             if(req.body.role) data.role = req.body.role;
             if(req.body.isEnabled) data.isEnabled = req.body.isEnabled;
             if(data.isModified()) {
-                data.save().then(data => {
-                    res.status(200).json(data);
-                    res.end();
-                }).catch(error => {
-                    handleServerErrorResponse(res, error);
-                });
+                const saved = await data.save().catch(error => handleServerErrorResponse(res, error));
+                if(saved) res.status(200).json(saved);
             }
             else {
                 res.status(200).json(data);
