@@ -1,6 +1,6 @@
 const mongoose = require('mongoose')
 const locationSchema = new mongoose.Schema({
-    sourceId:{
+    locationId:{
         type:String,
         required:true,
     },
@@ -22,7 +22,7 @@ const locationSchema = new mongoose.Schema({
     },
     distance:{
         type:Number,
-        default:Math.floor(Math.random()*1000),//only for now
+        default:0,//only for now
     },
     createdAt:{
         type:String,

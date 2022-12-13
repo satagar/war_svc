@@ -12,24 +12,24 @@ const orderSchema = new mongoose.Schema({
         type:String
     },
     source:{
-        type:mongoose.SchemaType.ObjectId,
+        type:mongoose.SchemaTypes.ObjectId,
        ref:"location"
     },
     destinetion:{
-        type:mongoose.SchemaType.ObjectId,
-        required:"location"
+        type:mongoose.SchemaTypes.ObjectId,
+        ref:"location"
     },
     user:{
-        type:mongoose.SchemaType.ObjectId,
+        type:mongoose.SchemaTypes.ObjectId,
         ref:"user"
     },
-    orderStatus:{
+    tracking:{
         type:String,
         default:"PENDING",
         enum:["PENDING","RUNING","COMPLETED"]
     },
     paymentDetail:{
-        type:mongoose.SchemaType.ObjectId,
+        type:mongoose.SchemaTypes.ObjectId,
         ref:"payment"
     },
     createdAt:{

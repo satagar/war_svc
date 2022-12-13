@@ -10,11 +10,20 @@ const userSchema = new mongoose.Schema({
     },
     email:{
         type:String,
+        unique:true,
         required:true
     },
-    addres:{
-        type:mongoose.SchemaType.ObjectId,
-        ref:"source"
+    password:{
+        type:String,
+        required:true,
+    },
+    address:{
+        type:mongoose.Schema.Types.ObjectId,
+        ref:"location"
+    },
+    orderDetails:{
+        type:[mongoose.SchemaTypes.ObjectId],
+        ref:"order"
     },
     createdAt:{
         type:String,
