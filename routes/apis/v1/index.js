@@ -17,6 +17,10 @@ route.get('/user/filter',authMiddleware.isValieduser,userController.filter);
 route.post('/order',authMiddleware.isValieduser,inputCheck,orderController.createOrder);
 route.post('/location/add',authMiddleware.isValieduser,checkInput,locationController.createLocation)
 route.post('/payment/pay',authMiddleware.isValieduser,checkInputforPaymet,paymentController.payment)
+route.put('/order/update',authMiddleware.isValieduser,orderController.updateOrder);
+route.delete('/order/delete',authMiddleware.isValieduser,orderController.deleteOrder)
+//-------------------------------------payment filters--------------------------------------
+route.get('/payment/filter',authMiddleware.isValieduser,paymentController.paymentFilter);
 //----------------------------------order filter-----------------------------------------------
 route.get('/order/filter',authMiddleware.isValieduser,orderController.orderFilrter)
 module.exports = route;

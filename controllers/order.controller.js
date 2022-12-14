@@ -1,5 +1,7 @@
 const orderModel = require('../models/order.model');
 const userModel = require('../models/user.model');
+const locationModel = require('../models/location.model');
+const paymentModel = require('../models/payment.model')
 exports.createOrder = async (req,res)=>{
     const data = {
         orderId:parseInt(Math.random()*10000),
@@ -65,4 +67,68 @@ exports.orderFilrter = async (req,res)=>{
             message:"internal server error!"
         })
     }
+}
+exports.updateOrder = async(req,res)=>{
+    const body = req.body
+    if(!body.orderid){
+         return res.status(404).send({
+            message:"please fill orderID!"
+         })
+    }
+    try{
+        const order = await orderModel.findOne({orderId:body.orderid})
+       if(body.title){
+        order.title = body.title
+       }
+       if(body.description){
+        order.description = body.description
+       }
+       if(body.status){
+        order.tracking = body.status
+       }
+       await order.save();
+       return res.status(200).send({
+        message:"order update successfully",
+        order:order
+       })
+    }catch(err){
+   console.log(err.message);
+   return res.status(500).send({
+    message:"internal server error!",
+    order:order
+   })
+    }
+}
+exports.deleteOrder = async (req,res)=>{
+    const find = {}
+    if(!req.body.orderId){
+        return res.status(404).send({
+           message:"please fill orderID!"
+        })
+   }
+   find.orderId = req.body.orderId;
+   try{
+       const order = await orderModel.findOneAndDelete(find)
+       if(!order){
+            return res.status(201).send({
+                message:"Order already deleted!"
+            })
+       }
+        await locationModel.deleteOne({_id:order.source});
+        await locationModel.deleteOne({_id:order.destinetion})
+        await paymentModel.deleteOne({_id:order.paymentDetail})
+        const user = await userModel.findOne({_id:order.user})
+        const index = user.orderDetails.indexOf(order._id)
+        user.orderDetails.splice(index,1);
+        await user.save()
+        return res.status(200).send({
+            message:"order deleted successfully",
+            Delted_Order : order
+           })
+   }catch(err){
+    console.log(err.message);
+    return res.status(500).send({
+     message:"internal server error!",
+    })
+     }
 }

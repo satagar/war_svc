@@ -27,3 +27,25 @@ exports.payment = async (req,res)=>{
         })
     }
 }
+exports.paymentFilter = async (req,res)=>{
+    const find = {}
+    if(req.query.id){
+        find._id = req.query.id
+    }
+    if(req.query.title){
+        find.title = {$regex:req.query.title}
+    }
+    if(req.query.status){
+        find.paymentStatus = req.query.status
+    }
+    try{
+        const finded = await paymentModel.find(find);
+        return res.status(200).send({
+          paymentSummary:finded
+        })
+ }catch(err){
+     return res.status(500).send({
+         message:"internal server error!"
+     })
+ }
+}
