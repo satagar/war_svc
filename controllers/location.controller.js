@@ -1,5 +1,4 @@
 const orderModel = require('../models/order.model');
-const userModel = require('../models/user.model');
 const locationModel = require('../models/location.model')
 exports.createLocation = async (req,res)=>{
     const source = req.body.source

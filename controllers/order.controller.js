@@ -42,3 +42,27 @@ exports.createOrder = async (req,res)=>{
         })
     }
 }
+
+exports.orderFilrter = async (req,res)=>{
+    const find = {};
+    if(req.query.orderid){
+        find.orderId = req.query.orderid
+    }
+    if(req.query.title){
+        find.title ={$regex:req.query.title}
+    }
+    if(req.query.status){
+        find.tracking = req.query.status
+    }
+    try{
+        const orders = await orderModel.find(find);
+        return res.status(200).send({
+            orderSummary:orders
+        })
+    }catch(err){
+        console.log(err.message)
+        return res.status(500).send({
+            message:"internal server error!"
+        })
+    }
+}
