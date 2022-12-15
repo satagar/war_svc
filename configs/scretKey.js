@@ -1,0 +1,1 @@
+exports.scretKey = '<deliveryServiceApp454545>'
